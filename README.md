@@ -25,7 +25,7 @@ with the TypeScript Image Resizer. 🖌️💡
 To use the TypeScript Image Resizer in your project, simply install it via npm:
 
 ```bash
-npm install typescript-image-resizer
+npm install resize-image
 ```
 
 ## Usage
@@ -55,7 +55,7 @@ optionally specify the `quality` of the resized image. The function returns a pr
 containing the base64 encoded string of the resized image on success, or an error message on failure.
 
 ```ts
-import {resizeImage} from 'typescript-image-resizer';
+import {resizeImage} from 'resize-image';
 
 const resizedImageResult = await resizeImage(img, 800, 600, 0.8);
 if (resizedImageResult.ok) {
@@ -76,7 +76,7 @@ also optionally specify the `quality` of the resized image. The function returns
 object containing the base64 encoded string of the resized image on success, or an error message on failure.
 
 ```ts
-import {resizeImageWidth} from 'typescript-image-resizer';
+import {resizeImageWidth} from 'resize-image';
 
 const resizedImageResult = await resizeImageWidth(img, 800, 0.8);
 if (resizedImageResult.ok) {
@@ -97,7 +97,7 @@ also optionally specify the `quality` of the resized image. The function returns
 object containing the base64 encoded string of the resized image on success, or an error message on failure.
 
 ```ts
-import {resizeImageHeight} from 'typescript-image-resizer';
+import {resizeImageHeight} from 'resize-image';
 
 const resizedImageResult = await resizeImageHeight(img, 600, 0.8);
 if (resizedImageResult.ok) {
