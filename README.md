@@ -3,6 +3,8 @@
 ✨🖼️ TypeScript Image Resizer: Zero-dependency module for resizing images using DOM File object. Returns base64 encoded
 string in Rust-like result object. Utilizes Canvas browser API. Effortless image magic! 🌟🎉
 
+---
+
 This powerful module, written entirely in TypeScript, empowers you to seamlessly resize images using the DOM `File`
 object as input. With its sleek implementation, it harnesses the mighty Canvas browser API to perform image resizing
 magic
@@ -27,6 +29,8 @@ npm install typescript-image-resizer
 ```
 
 ## Usage
+
+The TypeScript Image Resizer provides several functions for image resizing:
 
 ```ts
 export function resizeImage(img: File, width: number, height: number, quality?: number): Promise<Result<string, string>>
