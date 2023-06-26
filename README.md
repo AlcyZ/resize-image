@@ -25,7 +25,7 @@ with the TypeScript Image Resizer. 🖌️💡
 To use the TypeScript Image Resizer in your project, simply install it via npm:
 
 ```bash
-npm install resize-image
+npm install sdx-resize-image
 ```
 
 ## Usage
