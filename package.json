@@ -1,0 +1,30 @@
+{
+  "name": "resize-image",
+  "version": "0.0.1",
+  "description": "A lightweight and efficient module for resizing images in TypeScript using the Canvas browser API.",
+  "main": "resize-image.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "typescript",
+    "image",
+    "resizer",
+    "canvas",
+    "browser",
+    "API"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlcyZ/resize-image.git"
+  },
+  "author": "Tobias Schindler",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlcyZ/resize-image/issues"
+  },
+  "homepage": "https://github.com/AlcyZ/resize-image#readme",
+  "devDependencies": {
+    "typescript": "^5.1.3"
+  }
+}
