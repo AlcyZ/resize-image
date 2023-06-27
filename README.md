@@ -33,26 +33,100 @@ npm install sdx-resize-image
 The TypeScript Image Resizer provides several functions for image resizing:
 
 ```ts
-export function resizeImage(img: File, width: number, height: number, quality?: number): Promise<Result<string, string>>
+export function resizeImg(
+    img: File,
+    opt: Options
+): Promise<Result<string, string>> { /* ... */ }
 ```
 
 ```ts
-export function resizeImageWidth(img: File, width: number, quality?: number): Promise<Result<string, string>>
+export function resizeImage(
+    img: File,
+    width: number,
+    height: number,
+    quality?: number,
+    type?: DataType
+): Promise<Result<string, string>> { /* ... */ }
 ```
 
 ```ts
-export function resizeImageHeight(img: File, height: number, quality?: number): Promise<Result<string, string>>
+export function resizeImageWidth(
+    img: File,
+    width: number,
+    quality?: number,
+    type?: DataType
+): Promise<Result<string, string>> { /* ... */ }
 ```
 
-Refer to the API documentation for detailed information on each function and how to use them.
+```ts
+export function resizeImageHeight(
+    img: File,
+    height: number,
+    quality?: number,
+    type?: DataType
+): Promise<Result<string, string>> { /* ... */ }
+```
+
+You can decide if you prefer the concrete functions for image resizing or the flexible approach using an options
+object to control the outcome. Invalid usage results in an error result describing the wrong usage.  
+Refer to the [API](https://github.com/AlcyZ/resize-image#api) documentation for detailed information on each function
+and how to use them.
 
 ## API
 
-`resizeImage(img: File, width: number, height: number, quality?: number): Promise<Result<string, string>>`
+`resizeImg(img: File, opt: Options): Promise<Result<string, string>>`
+
+A function that allows you to resize an image file with flexible options.
+
+#### Parameters
+
+- img (required): The image file to be resized.
+- opt (required): An object containing options for image resizing. The options include:
+    - type (optional): The desired data type of the resized image. Supported values are 'image/png', 'image/jpeg', and '
+      image/webp'. If not provided, the default data type is 'image/png'.
+    - width (optional): The desired width of the resized image in pixels.
+    - height (optional): The desired height of the resized image in pixels.
+    - quality (optional): The desired quality of the resized image. This value should be a number between 0 and 1, where
+      1 represents the highest quality. If not provided, the default quality is used.
+
+At least `width` or `height` must be set in the options. If none is present, the validation fails and returns an error
+result.
+
+#### Return Value
+
+A promise that resolves to a Result object. The Result object represents the outcome of the image resizing operation and
+contains either the resized image as a base64-encoded string (ok property) or an error message (err property).
+
+#### Example
+
+```ts
+import {resizeImg} from 'sdx-resize-image';
+
+const opt = {
+    width: 800,
+    height: 600,
+    quality: 0.8,
+    type: 'image/webp'
+}
+const resizedImageResult = await resizeImg(img, opt);
+if (resizedImageResult.ok) {
+    const resizedImageBase64 = resizedImageResult.value;
+    // Process the resized image
+} else {
+    const error = resizedImageResult.error;
+    // Handle the error
+}
+```
+
+---
+
+`resizeImage(img: File, width: number, height: number, quality?: number, type?: DataTyoe): Promise<Result<string, string>>`
 
 Resizes the image specified by the `img` file object to the desired `width` and `height` dimensions. You can also
-optionally specify the `quality` of the resized image. The function returns a promise that resolves to a result object
-containing the base64 encoded string of the resized image on success, or an error message on failure.
+optionally specify the `quality` and `type` of the resized image. The function returns a promise that resolves to a
+result object containing the base64 encoded string of the resized image on success, or an error message on failure.
+
+#### Example
 
 ```ts
 import {resizeImage} from 'sdx-resize-image';
@@ -69,11 +143,13 @@ if (resizedImageResult.ok) {
 
 ---
 
-`resizeImageWidth(img: File, width: number, quality?: number): Promise<Result<string, string>>`
+`resizeImageWidth(img: File, width: number, quality?: number, type?: DataTyoe): Promise<Result<string, string>>`
 
 Resizes the image specified by the `img` file object to the desired `width` while maintaining the aspect ratio. You can
-also optionally specify the `quality` of the resized image. The function returns a promise that resolves to a result
-object containing the base64 encoded string of the resized image on success, or an error message on failure.
+also optionally specify the `quality` and `type` of the resized image. The function returns a promise that resolves to a
+result object containing the base64 encoded string of the resized image on success, or an error message on failure.
+
+#### Example
 
 ```ts
 import {resizeImageWidth} from 'sdx-resize-image';
@@ -90,11 +166,13 @@ if (resizedImageResult.ok) {
 
 ---
 
-`resizeImageHeight(img: File, height: number, quality?: number): Promise<Result<string, string>>`
+`resizeImageHeight(img: File, height: number, quality?: number, type?: DataTyoe): Promise<Result<string, string>>`
 
 Resizes the image specified by the `img` file object to the desired `height` while maintaining the aspect ratio. You can
-also optionally specify the `quality` of the resized image. The function returns a promise that resolves to a result
-object containing the base64 encoded string of the resized image on success, or an error message on failure.
+also optionally specify the `quality` and `type` of the resized image. The function returns a promise that resolves to a
+result object containing the base64 encoded string of the resized image on success, or an error message on failure.
+
+#### Example
 
 ```ts
 import {resizeImageHeight} from 'sdx-resize-image';
@@ -111,9 +189,10 @@ if (resizedImageResult.ok) {
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT](https://github.com/AlcyZ/resize-image/blob/main/LICENSE) License.
 
 ----
 
 Enjoy the power and simplicity of image resizing with the TypeScript Image Resizer! If you encounter any issues or have
-any suggestions, feel free to open an issue on GitHub. Contributions are also welcome! 🎉🤝
+any suggestions, feel free to open an issue on [GitHub](https://github.com/AlcyZ/resize-image/issues). Contributions are
+also welcome! 🎉🤝
