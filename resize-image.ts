@@ -98,7 +98,7 @@ export function resizeImg(img: File, opt: Options): Promise<Result<string, strin
             }
             const {width, height} = dimensionsResult.value;
 
-            return resize(image, width, height, opt.quality);
+            return resize(image, width, height, opt.quality, opt.type);
         };
         return loadImageAndCall(imageBase64, callback)
     };
