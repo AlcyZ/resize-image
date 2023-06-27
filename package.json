@@ -1,6 +1,6 @@
 {
   "name": "sdx-resize-image",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A lightweight and efficient module for resizing images in TypeScript using the Canvas browser API.",
   "main": "resize-image.ts",
   "scripts": {
