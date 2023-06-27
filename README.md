@@ -120,7 +120,7 @@ if (resizedImageResult.ok) {
 
 ---
 
-`resizeImage(img: File, width: number, height: number, quality?: number, type?: DataTyoe): Promise<Result<string, string>>`
+`resizeImage(img: File, width: number, height: number, quality?: number, type?: DataType): Promise<Result<string, string>>`
 
 Resizes the image specified by the `img` file object to the desired `width` and `height` dimensions. You can also
 optionally specify the `quality` and `type` of the resized image. The function returns a promise that resolves to a
@@ -143,7 +143,7 @@ if (resizedImageResult.ok) {
 
 ---
 
-`resizeImageWidth(img: File, width: number, quality?: number, type?: DataTyoe): Promise<Result<string, string>>`
+`resizeImageWidth(img: File, width: number, quality?: number, type?: DataType): Promise<Result<string, string>>`
 
 Resizes the image specified by the `img` file object to the desired `width` while maintaining the aspect ratio. You can
 also optionally specify the `quality` and `type` of the resized image. The function returns a promise that resolves to a
@@ -166,7 +166,7 @@ if (resizedImageResult.ok) {
 
 ---
 
-`resizeImageHeight(img: File, height: number, quality?: number, type?: DataTyoe): Promise<Result<string, string>>`
+`resizeImageHeight(img: File, height: number, quality?: number, type?: DataType): Promise<Result<string, string>>`
 
 Resizes the image specified by the `img` file object to the desired `height` while maintaining the aspect ratio. You can
 also optionally specify the `quality` and `type` of the resized image. The function returns a promise that resolves to a
