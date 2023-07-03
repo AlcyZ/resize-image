@@ -66,7 +66,7 @@ interface Dimensions {
  * @template T - The type of the successful value.
  */
 const ok = <T>(value: T): Ok<T> => {
-    return {ok: true, value};
+    return { ok: true, value };
 }
 
 /**
@@ -77,7 +77,7 @@ const ok = <T>(value: T): Ok<T> => {
  * @template E - The type of the error value.
  */
 const err = <E>(error: E): Err<E> => {
-    return {ok: false, error};
+    return { ok: false, error };
 }
 
 /**
@@ -96,7 +96,7 @@ export function resizeImg(img: File, opt: Options): Promise<Result<string, strin
             if (!dimensionsResult.ok) {
                 return dimensionsResult;
             }
-            const {width, height} = dimensionsResult.value;
+            const { width, height } = dimensionsResult.value;
 
             return resize(image, width, height, opt.quality, opt.type);
         };
@@ -201,7 +201,7 @@ function resizeWidth(
     type?: DataType
 ): Promise<Result<string, string>> {
     const callback = (image: HTMLImageElement): Result<string, string> => {
-        const dimensions = {width: image.width, height: image.height};
+        const dimensions = { width: image.width, height: image.height };
         const height = scaleHeight(dimensions, width);
 
         return resize(image, width, height, quality, type);
@@ -217,7 +217,7 @@ function resizeHeight(
     type?: DataType
 ): Promise<Result<string, string>> {
     const callback = (image: HTMLImageElement): Result<string, string> => {
-        const dimensions = {width: image.width, height: image.height};
+        const dimensions = { width: image.width, height: image.height };
         const width = scaleWidth(dimensions, height);
 
         return resize(image, width, height, quality, type);
@@ -228,16 +228,16 @@ function resizeHeight(
 
 function getDimensions(opt: Options, image: HTMLImageElement): Result<Dimensions, string> {
     if (opt.width !== undefined && opt.height !== undefined) {
-        return ok({width: opt.width, height: opt.height});
+        return ok({ width: opt.width, height: opt.height });
     }
 
-    const dimensions = {width: image.width, height: image.height};
+    const dimensions = { width: image.width, height: image.height };
     if (opt.width !== undefined && opt.height === undefined) {
-        return ok({width: opt.width, height: scaleHeight(dimensions, opt.width)});
+        return ok({ width: opt.width, height: scaleHeight(dimensions, opt.width) });
     }
 
     if (opt.width === undefined && opt.height !== undefined) {
-        return ok({width: scaleWidth(dimensions, opt.height), height: opt.height});
+        return ok({ width: scaleWidth(dimensions, opt.height), height: opt.height });
     }
 
     // should never happen if `validate` function is called before this function
@@ -267,7 +267,7 @@ function readImageAndCall(
 ): Promise<Result<string, string>> {
     return new Promise(resolve => {
         const isValid = validate(img, quality);
-        if (!isValid) {
+        if (!isValid.ok) {
             resolve(isValid);
             return;
         }
