@@ -1,18 +1,4 @@
 /**
- * Represents a successful result value containing a value of type `T`.
- *
- * @template T - The type of the successful value.
- */
-type Ok<T> = { ok: true, value: T };
-
-/**
- * Represents an error result value containing an error value of type `E`.
- *
- * @template E - The type of the error value.
- */
-type Err<E> = { ok: false, error: E };
-
-/**
  * Represents a result type that can either hold a successful value of type `T` or an error value of type `E`.
  *
  * @template T - The type of the successful value.
@@ -23,12 +9,7 @@ export type Result<T, E> = Ok<T> | Err<E>;
 /**
  * The data type for the resized image.
  */
-type DataType = 'image/png' | 'image/jpeg' | 'image/webp';
-
-/**
- * The type for resolving a Promise with a Result object.
- */
-type PromiseResolve = (value: Result<string, string>) => void;
+export type DataType = 'image/png' | 'image/jpeg' | 'image/webp';
 
 /**
  * The options for image resizing.
@@ -39,45 +20,11 @@ type PromiseResolve = (value: Result<string, string>) => void;
  * @property {number} [height] - The desired height of the resized image.
  * @property {number} [quality] - The optional quality setting for the resized image.
  */
-interface Options {
+export interface Options {
     type?: DataType;
     width?: number;
     height?: number;
     quality?: number;
-}
-
-/**
- * The dimensions of an image.
- * @interface Dimensions
- *
- * @property {number} width - The width of the image.
- * @property {number} height - The height of the image.
- */
-interface Dimensions {
-    width: number;
-    height: number;
-}
-
-/**
- * Creates a successful result object with the given value.
- *
- * @param value - The value representing the successful result.
- * @returns {Ok} - A successful result object containing the provided value.
- * @template T - The type of the successful value.
- */
-const ok = <T>(value: T): Ok<T> => {
-    return {ok: true, value};
-}
-
-/**
- * Creates an error result object with the given error.
- *
- * @param error - The error representing the unsuccessful result.
- * @returns {Err} - An error result object containing the provided error.
- * @template E - The type of the error value.
- */
-const err = <E>(error: E): Err<E> => {
-    return {ok: false, error};
 }
 
 /**
@@ -96,7 +43,7 @@ export function resizeImg(img: File, opt: Options): Promise<Result<string, strin
             if (!dimensionsResult.ok) {
                 return dimensionsResult;
             }
-            const {width, height} = dimensionsResult.value;
+            const { width, height } = dimensionsResult.value;
 
             return resize(image, width, height, opt.quality, opt.type);
         };
@@ -180,6 +127,59 @@ export function resizeImageHeight(
     return readImageAndCall(img, callback, quality);
 }
 
+/**
+ * Represents a successful result value containing a value of type `T`.
+ *
+ * @template T - The type of the successful value.
+ */
+type Ok<T> = { ok: true, value: T };
+
+/**
+ * Represents an error result value containing an error value of type `E`.
+ *
+ * @template E - The type of the error value.
+ */
+type Err<E> = { ok: false, error: E };
+
+/**
+ * The type for resolving a Promise with a Result object.
+ */
+type PromiseResolve = (value: Result<string, string>) => void;
+
+/**
+ * The dimensions of an image.
+ * @interface Dimensions
+ *
+ * @property {number} width - The width of the image.
+ * @property {number} height - The height of the image.
+ */
+interface Dimensions {
+    width: number;
+    height: number;
+}
+
+/**
+ * Creates a successful result object with the given value.
+ *
+ * @param value - The value representing the successful result.
+ * @returns {Ok} - A successful result object containing the provided value.
+ * @template T - The type of the successful value.
+ */
+const ok = <T>(value: T): Ok<T> => {
+    return { ok: true, value };
+}
+
+/**
+ * Creates an error result object with the given error.
+ *
+ * @param error - The error representing the unsuccessful result.
+ * @returns {Err} - An error result object containing the provided error.
+ * @template E - The type of the error value.
+ */
+const err = <E>(error: E): Err<E> => {
+    return { ok: false, error };
+}
+
 function resizeWidthAndHeight(
     imageBase64: string,
     width: number,
@@ -201,7 +201,7 @@ function resizeWidth(
     type?: DataType
 ): Promise<Result<string, string>> {
     const callback = (image: HTMLImageElement): Result<string, string> => {
-        const dimensions = {width: image.width, height: image.height};
+        const dimensions = { width: image.width, height: image.height };
         const height = scaleHeight(dimensions, width);
 
         return resize(image, width, height, quality, type);
@@ -217,7 +217,7 @@ function resizeHeight(
     type?: DataType
 ): Promise<Result<string, string>> {
     const callback = (image: HTMLImageElement): Result<string, string> => {
-        const dimensions = {width: image.width, height: image.height};
+        const dimensions = { width: image.width, height: image.height };
         const width = scaleWidth(dimensions, height);
 
         return resize(image, width, height, quality, type);
@@ -228,16 +228,16 @@ function resizeHeight(
 
 function getDimensions(opt: Options, image: HTMLImageElement): Result<Dimensions, string> {
     if (opt.width !== undefined && opt.height !== undefined) {
-        return ok({width: opt.width, height: opt.height});
+        return ok({ width: opt.width, height: opt.height });
     }
 
-    const dimensions = {width: image.width, height: image.height};
+    const dimensions = { width: image.width, height: image.height };
     if (opt.width !== undefined && opt.height === undefined) {
-        return ok({width: opt.width, height: scaleHeight(dimensions, opt.width)});
+        return ok({ width: opt.width, height: scaleHeight(dimensions, opt.width) });
     }
 
     if (opt.width === undefined && opt.height !== undefined) {
-        return ok({width: scaleWidth(dimensions, opt.height), height: opt.height});
+        return ok({ width: scaleWidth(dimensions, opt.height), height: opt.height });
     }
 
     // should never happen if `validate` function is called before this function
@@ -267,7 +267,7 @@ function readImageAndCall(
 ): Promise<Result<string, string>> {
     return new Promise(resolve => {
         const isValid = validate(img, quality);
-        if (!isValid) {
+        if (!isValid.ok) {
             resolve(isValid);
             return;
         }
