@@ -267,7 +267,7 @@ function readImageAndCall(
 ): Promise<Result<string, string>> {
     return new Promise(resolve => {
         const isValid = validate(img, quality);
-        if (!isValid) {
+        if (!isValid.ok) {
             resolve(isValid);
             return;
         }
