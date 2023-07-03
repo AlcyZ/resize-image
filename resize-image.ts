@@ -39,7 +39,7 @@ type PromiseResolve = (value: Result<string, string>) => void;
  * @property {number} [height] - The desired height of the resized image.
  * @property {number} [quality] - The optional quality setting for the resized image.
  */
-interface Options {
+export interface Options {
     type?: DataType;
     width?: number;
     height?: number;
